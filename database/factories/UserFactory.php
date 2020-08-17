@@ -43,3 +43,16 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'user_id' => rand(1,10),
     ];
 });
+
+$factory->define(App\Contact::class, function (Faker $faker) {
+    return [
+        'contact_name' => $faker->name,
+        'photo' => $faker->imageUrl,
+        'description' => $faker->paragraph,
+        'user_id' => rand(1,10),
+        'relation' => $faker->jobTitle,
+        'phone' => $faker->tollFreePhoneNumber,
+        'email' => $faker->safeEmail,
+        'address' => $faker->address                                
+    ];
+});

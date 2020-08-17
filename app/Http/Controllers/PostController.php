@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\User;
 use Auth;
 class PostController extends Controller
 {
@@ -91,4 +92,16 @@ class PostController extends Controller
 
       return ['message' => 'Post Updated'];
    }
+
+
+
+//Get Post By User
+//    public function userPost(){
+//     $id = Auth::user()->id;
+//     $user = User::find($id);
+//     $allpost = $user->posts()->with('user' ,'category')->orderBy('id', 'desc')->get();
+//     return response()->json([
+//         'posts' => $allpost
+//     ]);
+//    }
 }

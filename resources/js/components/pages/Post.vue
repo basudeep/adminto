@@ -98,8 +98,8 @@
     </Modal>
 
     <!--Image View  -->
-    <Modal :footer-hide='true' v-model="imageView" >
-       <img class="img-fluid" :src="`/assets/images/posts/${post.photo}`" alt="">
+    <Modal :footer-hide='true' v-model="imageView"  >
+       <img  class="img-fluid" :src="`/assets/images/posts/${post.photo}`" alt="">
     </Modal>
 
 
@@ -157,7 +157,7 @@
             <Button type="primary" @click='updateEditPost' :loading='isLoading' >{{ isLoading ? 'Saving....' : 'Save'}}</Button>
         </div>
     </Modal>
-    <Modal :footer-hide='true' v-model="editimageView" >
+    <Modal :footer-hide='true' v-model="editimageView" :v-if="editPost.photo">
        <img class="img-fluid" :src="`/assets/images/posts/${editPost.photo}`" alt="">
     </Modal>
 
@@ -299,7 +299,7 @@ export default {
                 this.editPost.photo= ''
             }
             this.editPost.photo = res
-            this.isDisableUpdate = false            
+            this.isDisableUpdate = true            
         },
         handleMaxSize (file) {
             this.$Notice.warning({
@@ -328,9 +328,21 @@ export default {
             Delete Updated Image From Front-End
         =========================================*/
         deleteEditImage(){
+            
             this.$refs.upload.clearFiles()
-            this.isDisable=false
+            const fileList = this.$refs.upload.fileList;
+            this.isDisableUpdate = false
+            if(this.oldImage != this.editPost.photo ){
+                 axios.post('/delete-image', {image:this.editPost.photo})
+                .then( res => {
+                    console.log('remove')
+                })
+                .catch( err =>{
+                    console.log(err)
+                })
+            }
             this.editPost.photo =  ''
+            
         },
 
         /*=======================================
