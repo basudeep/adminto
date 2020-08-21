@@ -9,6 +9,15 @@ use Auth;
 class PostController extends Controller
 {
     //
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
+
+
    public function all_post(){
        $posts = Post::with('user', 'category')->orderBy('id','desc')->get();
        return response()->json([

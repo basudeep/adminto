@@ -139,7 +139,7 @@
                         <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <img src="{{ URL::to('/')}}/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
                             <span class="pro-user-name ml-1">
-                                Nowak <i class="mdi mdi-chevron-down"></i> 
+                               {{Auth::user()->name}} <i class="mdi mdi-chevron-down"></i> 
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -258,7 +258,7 @@
     
                             </div>
                         </div>
-                        <p class="text-muted">Admin Had</p>
+                        <p class="text-muted">Admin Head</p>
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <a href="#" class="text-muted">
@@ -315,6 +315,17 @@
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
                                     <li><router-link to='/contact'>Conatact Add</router-link></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);">
+                                    <i class="mdi mdi-invert-colors"></i>
+                                    <span> Messages </span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <ul class="nav-second-level" aria-expanded="false">
+                                    <li><router-link to='/wp'>Whats app</router-link></li>
+                                    <li><router-link to='/contact'>Email</router-link></li>
                                 </ul>
                             </li>
 

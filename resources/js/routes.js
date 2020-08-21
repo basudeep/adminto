@@ -32,7 +32,20 @@ import Dashboard from './components/pages/Dashboard'
 import Category from './components/pages/Category'
 import Contact from './components/pages/Contact'
 import Post from './components/pages/Post'
+import Wp from './components/pages/Wp'
 
+
+
+
+
+/*
+=====================================
+          FRONT-END
+=====================================
+*/
+import Frontpage from './components/frontend/Homepage'
+import Blogpage from './components/frontend/blog/Blogpost'
+import BlogSingle from './components/frontend/blog/Singlepost'
 
 
 
@@ -53,12 +66,36 @@ const routes = [
         path:'/posts',
         component: Post
     },
+    {
+        path:'/wp',
+        component: Wp
+    },
+
+
+
+    //Front End
+
+
+    {   path: '/',
+        component: Frontpage
+    },
+    {
+        path:'/blogpage',
+        component: Blogpage,
+    },
+    {
+        path:'/singleblog/:id',
+        component: BlogSingle,
+        props:true,
+        name:'BlogSingle'
+    }
 ]
+
 
 
 const router = new VueRouter({
     routes,
-    mode:'history'
+    mode:'hash'
 })
 
 router.beforeEach((to, from, next) => {

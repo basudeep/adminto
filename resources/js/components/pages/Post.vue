@@ -144,7 +144,7 @@
         </div>
     </Upload>
 
-    <div class="demo-upload-list" v-if="editPost.photo">
+        <div class="demo-upload-list" v-if="editPost.photo">
             <img :src="`/assets/images/posts/${editPost.photo}`">
             <div class="demo-upload-list-cover">
                 <Icon type="ios-eye-outline" @click="editimageView=true"></Icon>
