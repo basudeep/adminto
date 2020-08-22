@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use Session;
 use App\Category;
 class BlogController extends Controller
 {
@@ -22,10 +23,19 @@ class BlogController extends Controller
             ],200);
     }
 
-    public function singlePost($id){
+    public function singlePost(Request $request,$id){
         $post = Post::with(array('user'=>function($query){
             $query->select('id','name');
         },'category'))->find($id);
+
+        $key = 'laractatblogpost'.$id;
+        if( !Session::has($key)){
+           $post->increment('totalview', 1);
+           Session::put($key, 1);
+        }
+
+
+
         return response()->json([
             'post' => $post
         ], 200 );

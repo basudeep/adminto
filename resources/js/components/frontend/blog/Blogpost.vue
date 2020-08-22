@@ -40,7 +40,7 @@
                       <li><i class="icon-calendar"></i><a href="#"> {{ post.created_at | dateformat}}</a></li>
                       <li><i class="icon-user"></i><a href="#"> {{post.user.name}}</a></li>
                       <li><i class="icon-folder-open"></i><a href="#"> {{post.category.category_name }}</a></li>
-                      <li><i class="icon-comments"></i><a href="#">0 Comments</a></li>
+                      <li><Icon type="ios-eye" size='18' />{{post.totalview}} views</li>
                     </ul>
                     <a href="#" class="pull-right"><router-link :to="`/singleblog/${post.id}`"> Continue reading </router-link><i class="icon-angle-right"></i></a>
                   </div>
