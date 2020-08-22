@@ -3,14 +3,13 @@
             <aside class="right-sidebar">
               <div class="widget">
                 <form class="form-search">
-                  <input placeholder="Type something" type="text" class="input-medium search-query">
-                  <button type="submit" class="btn btn-square btn-theme">Search</button>
+                  <input @keyup="handleSearch" v-on:keyup="emitToParent" v-model="searchKey" placeholder="Search Post Here" type="text" class="input-medium search-query">
                 </form>
               </div>
               <div class="widget">
                 <h5 class="widgetheading">Categories</h5>
                 <ul class="cat">
-                  <li v-for="(data , i ) in categories " :key='i'><i class="icon-angle-right"></i><a href="#">{{data.category_name}}</a><span> (20)</span></li>
+                  <li v-for="(data , i ) in categories " :key='i'><i class="icon-angle-right"></i><router-link :to="`/category/${data.id}`">{{data.category_name}}</router-link><span> ({{data.count}})</span></li>
                 </ul>
               </div>
               <div class="widget">
@@ -54,13 +53,20 @@ ul.recent img {
     margin-bottom: 0!important;
     line-height: 20px;
 }
+input.search-query {
+  height: 50px;
+  margin-bottom: 0;
+  border-radius: 50px;
+  width: 100%;
+}
 </style>
 <script>
-
+import _ from 'lodash'
 export default {
   data(){
     return {
-
+      searchKey: '',
+      isSearching: false
     }
   },
   computed:{
@@ -78,7 +84,23 @@ export default {
   methods:{
     handleRefresh(){
       this.$store.dispatch('getSingleBlog', this.$route.params.id )
+    },
+    handleSearch:_.debounce( function (){
+      this.$store.dispatch('handleSearch', this.searchKey )
+    }, 500),
+
+
+
+  emitToParent (event) {
+    if(this.searchKey.trim() != ''){
+      this.isSearching = true
+    }else{
+      this.isSearching = false
+    } 
+    this.$emit('isSearching', this.isSearching)
     }
-  }
+
+
+  },
 }
 </script>

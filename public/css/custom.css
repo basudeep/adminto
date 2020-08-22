@@ -44,3 +44,12 @@ td.tablephoto img {
     cursor: pointer;
     margin: 0 2px;
 }
+
+
+input.ivu-input.ivu-input-large.ivu-input-with-suffix {
+    height: 40px!important;
+}
+
+.pagination ul > li > a:hover, .pagination ul > li > a:focus, .pagination ul > .active > a, .pagination ul > .active > span {
+    background-color: red!important;
+}

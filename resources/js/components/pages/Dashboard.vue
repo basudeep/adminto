@@ -24,24 +24,7 @@
       <div v-for="(contact, i) in Contacts" :key="i" class="col-xl-4">
         <div class="text-center card-box">
           <div class="dropdown float-right">
-            <a
-              href="#"
-              class="dropdown-toggle arrow-none card-drop"
-              data-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="mdi mdi-dots-vertical"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-              <!-- item-->
-              <a href="javascript:void(0);" class="dropdown-item">Action</a>
-              <!-- item-->
-              <a href="javascript:void(0);" class="dropdown-item">Another action</a>
-              <!-- item-->
-              <a href="javascript:void(0);" class="dropdown-item">Something else</a>
-              <!-- item-->
-              <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
-            </div>
+              <Icon @click="deleteContact(contact.id)" type="ios-trash" />
           </div>
           <div>
 
@@ -362,7 +345,35 @@ export default {
               this.error('Something Went Wrong, Please Check The Number')
             }
             this.isLoading = false
+            },
+
+            deleteContact(id){
+              Swal.fire({
+                  title: 'Are you sure?',
+                  text: "You won't be able to revert this category!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes'
+                  }).then((result) => {
+                    if (result.value) {
+                      this.$Loading.start();
+                      axios.get(`/contact-delete/${id}`)
+                          .then( res => {
+                              this.$store.dispatch("getAllContacts");
+                              this.$Loading.finish();
+                              this.success('Contact Delete Succesfully')
+                          })
+                      .catch( err =>{
+                          this.$Loading.error();
+                          console.log(err)
+                      })
+                    }
+                })
             }
+
+
             },
 };
 </script>

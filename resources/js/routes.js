@@ -88,6 +88,9 @@ const routes = [
         component: BlogSingle,
         props:true,
         name:'BlogSingle'
+    },{
+        path: '/category/:id',
+        component: Blogpage
     }
 ]
 

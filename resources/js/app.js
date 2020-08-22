@@ -11,6 +11,8 @@ import vuestore from './store/index'
 import Swal from 'sweetalert2'
 Vue.use(ViewUI)
 
+Vue.use(require('vue-resource'))
+
 Vue.mixin(Common)
 window.Swal = Swal
 
@@ -25,7 +27,7 @@ const store = new Vuex.Store(
 
 
 
-
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 
 

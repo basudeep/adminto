@@ -12,7 +12,7 @@
           <div class="span8">
             <ul class="breadcrumb">
               <li><a href="#"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-              <li><a href="#">Blog</a><i class="icon-angle-right"></i></li>
+              <li><router-link to='/blogpage'>Blog</router-link><i class="icon-angle-right"></i></li>
               <li class="active">Blog with left sidebar</li>
             </ul>
           </div>
@@ -23,9 +23,7 @@
       <div class="container">
         <div class="row">
           <div class="span8">
-
-
-            <article v-for="(post, i ) in posts" :key="i">
+            <article  v-for="(post, i ) in posts " :key="i"  >
               <div class="row">
                 <div class="span8">
                   <div class="post-image">
@@ -51,16 +49,20 @@
             </article>
 
 
-
-            <div id="pagination">
-              <span class="all">Page 1 of 3</span>
-              <span class="current">1</span>
-              <a href="#" class="inactive">2</a>
-              <a href="#" class="inactive">3</a>
+            <div class="pagination">
+              <!-- <pagination  :data="posts" @pagination-change-page="getResults"></pagination> -->
             </div>
+
+
           </div>
           
-        <Sidebar />
+          <div v-if="posts.length ===  0" class="span8">
+              <h2 >No Post Found</h2>
+          </div>
+
+
+
+        <Sidebar v-on:isSearching="onChildKeyUp" />
 
 
         </div>
@@ -74,6 +76,10 @@
 .container{
     padding:0
 }
+.ivu-spin-dot{
+  display: block!important;
+}
+
 </style>
 
 <script>
@@ -86,7 +92,7 @@ export default {
     },
     data(){
         return{
-         
+          isChildSearch: '',
         }
     },
     computed:{
@@ -98,7 +104,41 @@ export default {
         this.$store.dispatch('getBlogPost')
     },
     methods:{
+      //  getResults(page) {
+      //           if (typeof page === 'undefined') {
+      //               page = 1;
+      //           }
 
+      //   if(this.$route.params.id != null){
+      //      this.$store.dispatch('getBlogPostCategoryByWise', this.$route.params.id )
+      //   } else{
+      //     this.$store.dispatch('getBlogPost', page)
+        
+      //   }
+
+      //  },
+      gettingPost(){
+        if(this.$route.params.id != null){
+           this.$store.dispatch('getBlogPostCategoryByWise', this.$route.params.id )
+        } else{
+          this.$store.dispatch('getBlogPost')
+        }
+      },
+
+       onChildKeyUp (value) {
+        this.isChildSearch = value
+      }
+
+
+
+
+
+
+    },
+    watch:{
+      $route( to, from){
+        this.gettingPost()
+      }
     }
 }
 </script>

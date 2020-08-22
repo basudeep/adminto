@@ -47,7 +47,7 @@ Route::get('/allcontact', 'ContactController@allContact');
 Route::get('/mycontacts', 'ContactController@userContact');
 Route::post('/upload-contact-image', 'ContactController@uploadContactImage');
 Route::post('/delete-contact-image', 'ContactController@deleteContactImage');
-Route::post('/add-contact', 'ContactController@addContact');
+Route::get('/contact-delete/{id}', 'ContactController@deleteContact');
 
 
 /*===================================================
@@ -64,6 +64,8 @@ Route::get('api/blogpost', 'BlogController@blogPost');
 Route::get('api/single-blog/{id}', 'BlogController@singlePost');
 Route::get('api/categories', 'BlogController@allCategories');
 Route::get('api/latest-post', 'BlogController@latestPost');
+Route::get('api/categorywise-post/{id}', 'BlogController@categoryWisePost');
+Route::get('api/search', 'BlogController@searchPost');
 
 Route::get('/allpost', 'PostController@all_post');
 

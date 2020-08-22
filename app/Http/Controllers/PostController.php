@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
 use App\User;
 use Auth;
 class PostController extends Controller
@@ -64,6 +65,7 @@ class PostController extends Controller
            'category_id' => $request->categoryId,
            'user_id' =>Auth::user()->id
        ]);
+       Category::where('id', $request->categoryId )->increment('count', 1);
        return [
         'message' => 'Post added'
        ];
@@ -78,6 +80,7 @@ class PostController extends Controller
        if(file_exists($path)){
            @unlink($path);
        }
+       Category::where('id', $post->category_id )->decrement('count', 1);
        $post->delete();
        return ['message' => 'Post Deleted'];
    }
@@ -92,6 +95,11 @@ class PostController extends Controller
         if(file_exists($path)){
             @unlink($path);
         }
+      }
+      if($post->category_id !== $request->category_id){
+          Category::where('id', $request->category_id )->increment('count', 1);
+          Category::where('id', $post->category_id )->decrement('count', 1);
+
       }
       $post->photo = $request->photo;
       $post->title = $request->title;

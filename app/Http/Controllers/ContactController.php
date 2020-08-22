@@ -74,4 +74,19 @@ class ContactController extends Controller
 
         return [ 'message' => "Contact Added"];
     }
+
+
+
+    //DELTE CONTACT
+
+
+    public function deleteContact($id){
+        $contact = Contact::find($id);
+        $path = public_path('assets/images/contacts/');
+        if($contact->photo){
+            @unlink($path.$contact->photo);
+        }
+        $contact->delete();
+    }
+
 }

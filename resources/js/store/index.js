@@ -75,7 +75,7 @@ export default{
         getSingleBlog( context , id ){
             axios.get(`api/single-blog/${id}`)
                 .then( res =>{
-                    context.commit('singleblog', res.data )
+                    context.commit('singleblog', res.data.post )
                 })
         },
         getBlogCategories( context ){
@@ -88,6 +88,18 @@ export default{
             axios.get('api/latest-post')
                 .then( res => {
                     context.commit('latestposts', res.data.posts)
+                })
+        },
+        getBlogPostCategoryByWise( context , id){
+            axios.get(`api/categorywise-post/${id}`)
+                .then( res =>{
+                    context.commit('categorywise', res.data)
+                })
+        },
+        handleSearch( context, keyword ){
+            axios.get(`api/search?query=${keyword}`)
+                .then( res =>{
+                    context.commit('searchedPosts', res.data.posts)
                 })
         }
     },
@@ -116,6 +128,12 @@ export default{
         },
         latestposts( state, data ){
             return state.latestposts = data
+        },
+        categorywise( state, data ){
+            return state.blogpost = data
+        },
+        searchedPosts( state, data ){
+            return state.blogpost = data
         }
     }
 }
